@@ -1,0 +1,3 @@
+#Ignore typescript config files
+tsconfig.json
+tsconfig.paths.json
