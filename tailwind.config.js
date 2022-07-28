@@ -11,9 +11,9 @@ module.exports = {
         sm: '.875rem', // 14px
         normal: '1rem', // 16px
         base: '1.25rem', // 20px
-        md: '2rem', // 32px
-        lg: '2.5rem', // 40px
-        xl: '5rem', // 80px
+        md: '1.5rem', // 24px
+        lg: '2rem', // 32px
+        xl: '2.5rem', // 40px
       },
     },
   },

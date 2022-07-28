@@ -22,26 +22,28 @@ export const Text = ({
     case "mainTitle":
       return (
         <h1
-          className={`font-display text-base font-light tracking-wider ${additionalStyle}`}
+          className={`font-display text-md font-extralight tracking-wider ${additionalStyle}`}
         >
           {children}
         </h1>
       );
     case "cardTitle":
       return (
-        <h2 className={`font-display font-bold text-normal ${additionalStyle}`}>
+        <h2
+          className={`font-display font-semibold text-normal ${additionalStyle}`}
+        >
           {children}
         </h2>
       );
     case "bodyRegularText":
       return (
-        <p className={`font-body font-extralight text-tiny ${additionalStyle}`}>
+        <p className={`font-body font-light text-xs ${additionalStyle}`}>
           {children}
         </p>
       );
     case "bodyRegularTextBold":
       return (
-        <p className={`font-body font-light text-tiny ${additionalStyle}`}>
+        <p className={`font-body font-medium text-xs ${additionalStyle}`}>
           {children}
         </p>
       );

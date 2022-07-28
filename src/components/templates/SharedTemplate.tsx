@@ -5,5 +5,5 @@ export type SharedTemplateProps = {
 };
 
 export const SharedTemplate: FC<SharedTemplateProps> = ({ children }) => {
-  return <div className="pt-8 md:pt-20">{children}</div>;
+  return <div className="px-4 max-w-6xl mx-auto pt-8 md:pt-20">{children}</div>;
 };

@@ -4,19 +4,16 @@ export type ButtonProps = {
   type?: "primary" | "secondary";
   // submit?: boolean;
   label?: string;
-  // icon?: "left" | "right";
-  // disabled?: boolean;
+  children?: JSX.Element;
   // onClick?: (e: MouseEvent<HTMLElement>) => void;
 };
 
-export const Button = ({ type = "primary", label }: ButtonProps) =>
+export const Button = ({ type = "primary", label, children }: ButtonProps) =>
   // submit = false,
-  // icon,
-  // disabled = false,
   // onClick,
   {
     const handleOnClick = (/* e: MouseEvent<HTMLElement> */) => {
-      // if (disabled || !onClick) return;
+      // if (!onClick) return;
       // onClick(e);
       console.log("Click !");
     };
@@ -36,13 +33,12 @@ export const Button = ({ type = "primary", label }: ButtonProps) =>
       <button
         type="button"
         className={`
-        inline-flex justify-center items-center text-xs font-semibold rounded transition-all duration-300 px-4 py-1 bg-green-400 uppercase
+        inline-flex justify-center items-center text-xs font-semibold rounded transition-all duration-300 px-2 bg-green-400 uppercase
         ${handleButtonType()}
       `}
-        // disabled={disabled || false}
         onClick={handleOnClick}
       >
-        {label}
+        {children} {label && <span className="mx-1">{label}</span>}
       </button>
     );
   };

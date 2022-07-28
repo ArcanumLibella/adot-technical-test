@@ -3,7 +3,7 @@ import { ListingDestinationPage } from "./pages/ListingDestinationPage";
 
 const App = () => {
   return (
-    <div className="App px-4 max-w-6xl mx-auto">
+    <div className="App h-screen bg-slate-100">
       <SharedTemplate>
         <ListingDestinationPage />
       </SharedTemplate>
