@@ -36,7 +36,7 @@ export const Button = ({ type = "primary", label }: ButtonProps) =>
       <button
         type="button"
         className={`
-        inline-flex justify-center items-center text-xs font-semibold rounded transition-all duration-300 px-4 py-2 bg-green-400 uppercase
+        inline-flex justify-center items-center text-xs font-semibold rounded transition-all duration-300 px-4 py-1 bg-green-400 uppercase
         ${handleButtonType()}
       `}
         // disabled={disabled || false}

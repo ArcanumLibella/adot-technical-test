@@ -1,0 +1,1 @@
+export { SharedTemplate } from "./SharedTemplate";
