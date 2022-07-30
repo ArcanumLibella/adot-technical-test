@@ -1,21 +1,24 @@
-// import { MouseEvent } from "react";
+import { MouseEvent } from "react";
 
 export type ButtonProps = {
-  type?: "primary" | "secondary";
+  type?: "primary" | "secondary" | "ternary";
   // submit?: boolean;
   label?: string;
   children?: JSX.Element;
-  // onClick?: (e: MouseEvent<HTMLElement>) => void;
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
 };
 
-export const Button = ({ type = "primary", label, children }: ButtonProps) =>
+export const Button = ({
+  type = "primary",
+  label,
+  children,
+  onClick,
+}: ButtonProps) =>
   // submit = false,
-  // onClick,
   {
-    const handleOnClick = (/* e: MouseEvent<HTMLElement> */) => {
-      // if (!onClick) return;
-      // onClick(e);
-      console.log("Click !");
+    const handleOnClick = (e: MouseEvent<HTMLElement>) => {
+      if (!onClick) return;
+      onClick(e);
     };
 
     const handleButtonType = () => {
@@ -23,9 +26,11 @@ export const Button = ({ type = "primary", label, children }: ButtonProps) =>
         case "primary":
           return `bg-green-400 hover:bg-green-500 text-white`;
         case "secondary":
-          return `bg-white border border-blue-500 border-2 text-blue-500 hover:text-blue-600 hover:border-blue-600`;
+          return `bg-white text-gray-500`;
+        case "ternary":
+          return `bg-white text-green-500`;
         default:
-          return `bg-red-300 hover:bg-red-500 text-white`;
+          return `bg-green-400 hover:bg-green-500 text-white`;
       }
     };
 
