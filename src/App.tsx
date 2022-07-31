@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import { Switch, TextField } from "@mui/material";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
+import { useForm } from "react-hook-form";
 import { SharedTemplate } from "./components/templates";
 import { ListingDestinationPage } from "./pages/ListingDestinationPage";
 import { Text } from "./components/atoms/Text";
@@ -17,9 +18,10 @@ export type destinationValuesProps = {
   hostel: string;
   income: string;
   area: string;
+  selected: boolean;
 };
 
-const destinationValues: destinationValuesProps[] = [
+const initialValues: destinationValuesProps[] = [
   {
     id: "1",
     name: "New-York",
@@ -29,64 +31,54 @@ const destinationValues: destinationValuesProps[] = [
     hostel: "13",
     income: "4000€",
     area: "12000",
+    selected: true,
   },
   {
     id: "2",
     name: "Paris",
     address: "8 boulevard de Courcelles 75008 PARIS",
-    link: "https://media.cntraveler.com/photos/5d8cf7d5db6acf000833e6cc/master/pass/Eiffel-Tower_GettyImages-1060266626.jpg",
+    link: "https://cdn-imgix.headout.com/tour/26082/TOUR-IMAGE/8278d227-6f79-48a9-a9b1-629583fd026a-13663-paris-skip-the-line-versailles-palace-tour---louvre-museum-ticket-03.jpg?auto=compress%2Cformat&h=573&q=75&fit=crop&ar=16%3A9&fm=webp",
     citizen: "10",
     hostel: "12",
     income: "3000€",
     area: "10000",
+    selected: false,
   },
 ];
 
 const App = () => {
   const [open, setOpen] = useState(false);
-  const [destinations, setDestinations] = useState(destinationValues);
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [link, setLink] = useState("");
-  const [citizen, setCitizen] = useState("");
-  const [hostel, setHostel] = useState("");
-  const [income, setIncome] = useState("");
-  const [area, setArea] = useState("");
+  const [destinations, setDestinations] = useState(initialValues);
 
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setName(e.target.value);
-  //   setAddress(e.target.value);
-  //   setLink(e.target.value);
-  //   // setCitizen(e.target.value);
-  //   // setHostel(e.target.value);
-  //   // setIncome(e.target.value);
-  //   // setArea(e.target.value);
-  // };
+  const formMethods = useForm({
+    mode: "onSubmit",
+    defaultValues: {
+      id: "",
+      name: "",
+      address: "",
+      link: "",
+      citizen: "",
+      hostel: "",
+      income: "",
+      area: "",
+      selected: false,
+    },
+  });
 
-  const handleAdd = () => {
-    const newDestinations = {
-      id: uuidv4(),
-      name,
-      address,
-      link,
-      citizen,
-      hostel,
-      income,
-      area,
-    };
-    setDestinations([...destinations, newDestinations]);
-    setName("");
-    setAddress("");
-    setLink("");
-    setCitizen("");
-    setHostel("");
-    setIncome("");
-    setArea("");
+  const { register, handleSubmit, reset } = formMethods;
+
+  const onSubmit = () => {
+    const values = formMethods.getValues();
+    console.log(values);
+    setDestinations([...destinations, values]);
     setOpen(false);
+    reset();
   };
 
+  console.log("Destinations : ", destinations);
+
   return (
-    <div className="App h-screen bg-slate-100">
+    <div className="App h-full min-h-screen bg-slate-100">
       <SharedTemplate>
         <ListingDestinationPage
           onOpenModal={() => setOpen(true)}
@@ -98,103 +90,100 @@ const App = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          {/* <form onSubmit={handleSubmit(handleFormSubmit)}> */}
-          <Box>
-            <Text type="modalTitle" id="modal-modal-title">
-              Ajouter une nouvelle destination :
-            </Text>
-            <div>
-              <TextField
-                id="name"
-                value={name}
-                label="Nom de la destination"
-                onChange={(e) => setName(e.target.value)}
-                margin="normal"
-                type="text"
-                size="small"
-                fullWidth
-                variant="filled"
-                required
-              />
-              <TextField
-                id="address"
-                value={address}
-                label="Adresse"
-                onChange={(e) => setAddress(e.target.value)}
-                autoFocus
-                margin="normal"
-                type="text"
-                size="small"
-                fullWidth
-                variant="filled"
-                required
-              />
-              <TextField
-                id="link"
-                value={link}
-                label="Lien de l'image"
-                onChange={(e) => setLink(e.target.value)}
-                margin="normal"
-                type="url"
-                size="small"
-                fullWidth
-                variant="filled"
-                required
-              />
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Box>
+              <Text type="modalTitle" id="modal-modal-title">
+                Ajouter une nouvelle destination :
+              </Text>
+              <div>
                 <TextField
-                  id="citizen"
-                  value={citizen}
-                  label="Nb habitants"
-                  onChange={(e) => setCitizen(e.target.value)}
+                  id="name"
+                  label="Nom de la destination"
+                  {...register("name")}
                   margin="normal"
                   type="text"
                   size="small"
+                  fullWidth
                   variant="filled"
+                  required
                 />
                 <TextField
-                  id="hostel"
-                  value={hostel}
-                  label="Nb hôtels"
-                  onChange={(e) => setHostel(e.target.value)}
+                  id="address"
+                  label="Adresse"
+                  {...register("address")}
+                  autoFocus
                   margin="normal"
                   type="text"
                   size="small"
+                  fullWidth
                   variant="filled"
+                  required
                 />
                 <TextField
-                  id="income"
-                  value={income}
-                  label="Revenu moyen"
-                  onChange={(e) => setIncome(e.target.value)}
+                  id="link"
+                  label="Lien de l'image"
+                  {...register("link")}
                   margin="normal"
-                  type="text"
+                  type="url"
                   size="small"
+                  fullWidth
                   variant="filled"
+                  required
                 />
-                <TextField
-                  id="area"
-                  value={area}
-                  label="Area"
-                  onChange={(e) => setArea(e.target.value)}
-                  margin="normal"
-                  type="text"
-                  size="small"
-                  variant="filled"
-                />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                  <TextField
+                    id="citizen"
+                    label="Nb habitants"
+                    {...register("citizen")}
+                    margin="normal"
+                    type="text"
+                    size="small"
+                    variant="filled"
+                    required
+                  />
+                  <TextField
+                    id="hostel"
+                    label="Nb hôtels"
+                    {...register("hostel")}
+                    margin="normal"
+                    type="text"
+                    size="small"
+                    variant="filled"
+                    required
+                  />
+                  <TextField
+                    id="income"
+                    label="Revenu moyen"
+                    {...register("income")}
+                    margin="normal"
+                    type="text"
+                    size="small"
+                    variant="filled"
+                    required
+                  />
+                  <TextField
+                    id="area"
+                    label="Area"
+                    {...register("area")}
+                    margin="normal"
+                    type="text"
+                    size="small"
+                    variant="filled"
+                    required
+                  />
+                </div>
+                <Switch color="secondary" {...register("selected")} />
               </div>
-              <Switch color="secondary" />
-            </div>
-            <div className="flex mt-10 justify-end">
-              <Button
-                onClick={() => setOpen(false)}
-                label="Cancel"
-                type="secondary"
-              />
-              <Button onClick={handleAdd} label="Confirm" type="ternary" />
-            </div>
-          </Box>
-          {/* </form> */}
+              <div className="flex mt-10 justify-end">
+                <Button
+                  onClick={() => setOpen(false)}
+                  label="Cancel"
+                  type="secondary"
+                />
+                <Button submit label="Confirm" type="ternary" />
+              </div>
+            </Box>
+          </form>
         </Modal>
       </SharedTemplate>
     </div>
