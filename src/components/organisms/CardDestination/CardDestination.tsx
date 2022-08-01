@@ -1,16 +1,26 @@
 import { Switch } from "@mui/material";
-import { useState } from "react";
-import { destinationValuesProps } from "../../../App";
+import { useContext, useState } from "react";
+import {
+  DestinationsContextType,
+  IDestination,
+} from "../../../@types/destination";
+import { DestinationsContext } from "../../../context/DestinationContext";
 import { Text } from "../../atoms/Text";
 import { CardDetail } from "../../molecules/CardDetail";
 
-export type CardDestinationProps = { destination: destinationValuesProps };
+export type CardDestinationProps = {
+  destination: IDestination;
+};
 
 export const CardDestination = ({ destination }: CardDestinationProps) => {
   const [checked, setChecked] = useState(destination.selected);
+  const { toggleSelectedDestination /* , saveSelectedDestination */ } =
+    useContext(DestinationsContext) as DestinationsContextType;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
+    toggleSelectedDestination(destination.id);
+    // saveSelectedDestination();
   };
 
   return (

@@ -1,19 +1,23 @@
 import AddIcon from "@mui/icons-material/Add";
+import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { destinationValuesProps } from "../App";
+import { DestinationsContextType, IDestination } from "../@types/destination";
 import { Button } from "../components/atoms/Button";
 import { Text } from "../components/atoms/Text";
 import { CardDestination } from "../components/organisms/CardDestination";
+import { DestinationsContext } from "../context/DestinationContext";
 
 export type ListingDestinationPageProps = {
-  destinations: destinationValuesProps[];
   onOpenModal: () => void;
 };
 
 export const ListingDestinationPage = ({
-  destinations,
   onOpenModal,
 }: ListingDestinationPageProps) => {
+  const { destinations } = useContext(
+    DestinationsContext,
+  ) as DestinationsContextType;
+
   return (
     <div>
       <div className="flex justify-between mb-8">
@@ -23,7 +27,7 @@ export const ListingDestinationPage = ({
         </Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {destinations.map((destination) => (
+        {destinations.map((destination: IDestination) => (
           <CardDestination key={uuidv4()} destination={destination} />
         ))}
       </div>
