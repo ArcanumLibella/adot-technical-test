@@ -14,13 +14,13 @@ export type CardDestinationProps = {
 
 export const CardDestination = ({ destination }: CardDestinationProps) => {
   const [checked, setChecked] = useState(destination.selected);
-  const { toggleSelectedDestination /* , saveSelectedDestination */ } =
-    useContext(DestinationsContext) as DestinationsContextType;
+  const { toggleSelectedDestination } = useContext(
+    DestinationsContext,
+  ) as DestinationsContextType;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     toggleSelectedDestination(destination.id);
-    // saveSelectedDestination();
   };
 
   return (

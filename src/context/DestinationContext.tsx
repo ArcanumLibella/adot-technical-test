@@ -20,7 +20,7 @@ const DestinationsContextProvider = ({
       link: "https://www.nyc.fr/wp-content/uploads/2015/07/New_York_City-scaled.jpg",
       citizen: "20",
       hostel: "13",
-      income: "4000€",
+      income: "4000",
       area: "12000",
       selected: true,
     },
@@ -31,7 +31,7 @@ const DestinationsContextProvider = ({
       link: "https://cdn-imgix.headout.com/tour/26082/TOUR-IMAGE/8278d227-6f79-48a9-a9b1-629583fd026a-13663-paris-skip-the-line-versailles-palace-tour---louvre-museum-ticket-03.jpg?auto=compress%2Cformat&h=573&q=75&fit=crop&ar=16%3A9&fm=webp",
       citizen: "10",
       hostel: "12",
-      income: "3000€",
+      income: "3000",
       area: "10000",
       selected: false,
     },
@@ -61,12 +61,9 @@ const DestinationsContextProvider = ({
       (destination: IDestination) => destination.selected === true,
     );
     setDestinationsSelected([...selectedDestinations]);
-
-    // TODO: Rajouter un if (si destination.selected === true alors on l'ajoute dans destinationsSelected sinon le retire)
-    // TODO Si cela fonctionne, modifier le nom de la fonction
   };
 
-  // TODO: Create toggleSelectedDestination
+  // TODO:
   const toggleSelectedDestination = (id: string) => {
     console.log(id);
   };
